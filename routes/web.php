@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Blog;
+use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
@@ -18,4 +20,10 @@ Route::get('/blog', function () {
 });
 Route::get('/blog/{post:slug}', function (Blog $post) {
     return view('post', ["title" => "Single Post", "post" => $post]);
+});
+Route::get('/authors/{user}', function (User $user) {
+    return view('blog', ["title" => count($user->blogs) . " Article by " . $user->name, "posts" => $user->blogs]);
+});
+Route::get('/categories/{category:slug}', function (Category $category) {
+    return view('blog', ["title" => "Article in " . $category->name, "posts" => $category->blogs]);
 });
