@@ -20,4 +20,6 @@
     </article>
     @endforeach
     
+    {{ $posts->links() }}
+    
   </x-layout>
