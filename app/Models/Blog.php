@@ -11,7 +11,7 @@ use App\Models\User;
 class Blog extends Model
 {
   use HasFactory;
-  protected $fillable = ['title','author','slug','body'];
+  protected $fillable = ['title','author','slug','body','category_id','author_id'];
   protected $with = ['author','category'];
   
   public function author(): BelongsTo 

@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\PdfController;
 use App\Http\Middleware;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
@@ -45,7 +46,9 @@ Route::middleware('auth')->group(function () {
   Route::get('/Personals/personalPage/{user:username}', [BlogController::class, 'index'])->name('personal.page');
   Route::get('/Personals/createPage', [BlogController::class, 'createView'])->name('create.view');
   Route::post('/Personals/createPage', [BlogController::class, 'createSubmit'])->name('create.submit');
-  Route::get('/Personals/editPage', [BlogController::class, 'editView'])->name('edit.view');
-  Route::post('/Personals/editPage', [BlogController::class, 'update'])->name('update');
-  Route::post('/Personals/delete', [BlogController::class, 'delete'])->name('delete');
+  Route::get('/Personals/editPage/{blog:slug}', [BlogController::class, 'editView'])->name('edit.view');
+  Route::put('/Personals/editPage/{blog:slug}', [BlogController::class, 'update'])->name('update');
+  Route::delete('/Personals/{blog}', [BlogController::class, 'destroy'])->name('blogs.destroy');
+  
+  Route::get('/generate-pdf', [PdfController::class, 'generatePdf']);
 });

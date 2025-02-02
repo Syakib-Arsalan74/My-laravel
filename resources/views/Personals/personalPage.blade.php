@@ -31,24 +31,27 @@
             </tr>
         </thead>
         <tbody>
+          @foreach ($blogs as $blog)
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    title yang sangat panjang minimal 
+                    <a href="/blog/{{$blog->slug}}">{{ $blog->title }}</a>
                 </th>
                 <td class="px-6 py-4">
-                    category programmer
+                    {{ $blog->category->name }}
                 </td>
                 <td class="px-6 py-4">
-                    29 january 2025
+                    {{ $blog->created_at }}
                 </td>
                 <td class="p-4">
-                    <a href="{{ route('edit.view') }}" class=" rounded-md p-1 bg-yellow-600 font-medium text-white dark:text-white hover:underline">Edit</a>
-                    <form action="{{ route('delete') }}" method="post">
+                    <a href="{{ route('edit.view', $blog->slug) }}" class=" rounded-md p-1 bg-yellow-600 font-medium text-white dark:text-white hover:underline">Edit</a>
+                    <form action="{{ route('blogs.destroy', $blog) }}" method="post">
+                      @method('DELETE')
                       @csrf
-                    <button class="rounded-md p-1 bg-red-600 font-medium text-white dark:text-white hover:underline">Delete</button>
+                    <button type="submit"class="rounded-md p-1 bg-red-600 font-medium text-white dark:text-white hover:underline">Delete</button>
                     </form>
                 </td>
             </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
